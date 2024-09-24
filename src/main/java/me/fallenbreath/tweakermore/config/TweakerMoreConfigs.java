@@ -55,6 +55,7 @@ import me.fallenbreath.tweakermore.impl.mod_tweaks.ofPlayerExtraModelOverride.Op
 import me.fallenbreath.tweakermore.impl.mod_tweaks.serverDataSyncer.ServerDataSyncer;
 import me.fallenbreath.tweakermore.impl.porting.lmCustomSchematicBaseDirectoryPorting.LitematicaCustomSchematicBaseDirectoryPorting;
 import me.fallenbreath.tweakermore.impl.setting.debug.TweakerMoreDebugHelper;
+import me.fallenbreath.tweakermore.util.EntityUtil.EntityRestriction;
 import me.fallenbreath.tweakermore.util.ModIds;
 import me.fallenbreath.tweakermore.util.RegistryUtil;
 import me.fallenbreath.tweakermore.util.doc.DocumentGenerator;
@@ -564,6 +565,20 @@ public class TweakerMoreConfigs
 	public static final TweakerMoreConfigDouble SCOREBOARD_SIDE_BAR_SCALE = newConfigDouble("scoreboardSideBarScale", 1, 0.001, 2);
 
 	@Config(type = Config.Type.GENERIC, category = Config.Category.MC_TWEAKS)
+	public static final TweakerMoreConfigBooleanHotkeyed SELECTIVE_ENTITY_RENDERING = newConfigBooleanHotkeyed("selectiveEntityRendering");
+
+	@Config(type = Config.Type.GENERIC, category = Config.Category.MC_TWEAKS)
+	public static final TweakerMoreConfigOptionList SELECTIVE_ENTITY_RENDERING_LIST_TYPE = newConfigOptionList("selectiveEntityRenderingListType", UsageRestriction.ListType.NONE);
+
+	@Config(type = Config.Type.GENERIC, category = Config.Category.MC_TWEAKS)
+	public static final TweakerMoreConfigStringList SELECTIVE_ENTITY_RENDERING_WHITELIST = newConfigStringList("selectiveEntityRenderingWhiteList", ImmutableList.of());
+
+	@Config(type = Config.Type.GENERIC, category = Config.Category.MC_TWEAKS)
+	public static final TweakerMoreConfigStringList SELECTIVE_ENTITY_RENDERING_BLACKLIST = newConfigStringList("selectiveEntityRenderingBlackList", ImmutableList.of());
+
+	public static final EntityRestriction SELECTIVE_ENTITY_RENDERING_RESTRICTION = new EntityRestriction();
+
+	@Config(type = Config.Type.GENERIC, category = Config.Category.MC_TWEAKS)
 	public static final TweakerMoreConfigBoolean SHULKER_BOX_ITEM_CONTENT_HINT = newConfigBoolean("shulkerBoxItemContentHint", false);
 
 	@Config(type = Config.Type.GENERIC, category = Config.Category.MC_TWEAKS)
@@ -964,6 +979,8 @@ public class TweakerMoreConfigs
 		TweakerMoreConfigs.HAND_RESTORE_RESTRICTION.setListContents(TweakerMoreConfigs.HAND_RESTORE_BLACKLIST.getStrings(), TweakerMoreConfigs.HAND_RESTORE_WHITELIST.getStrings());
 		TweakerMoreConfigs.AUTO_CLEAN_CONTAINER_RESTRICTION.setListType((UsageRestriction.ListType)TweakerMoreConfigs.AUTO_CLEAN_CONTAINER_LIST_TYPE.getOptionListValue());
 		TweakerMoreConfigs.AUTO_CLEAN_CONTAINER_RESTRICTION.setListContents(TweakerMoreConfigs.AUTO_CLEAN_CONTAINER_BLACKLIST.getStrings(), TweakerMoreConfigs.AUTO_CLEAN_CONTAINER_WHITELIST.getStrings());
+		TweakerMoreConfigs.SELECTIVE_ENTITY_RENDERING_RESTRICTION.setListType((UsageRestriction.ListType)TweakerMoreConfigs.SELECTIVE_ENTITY_RENDERING_LIST_TYPE.getOptionListValue());
+		TweakerMoreConfigs.SELECTIVE_ENTITY_RENDERING_RESTRICTION.setListContents(TweakerMoreConfigs.SELECTIVE_ENTITY_RENDERING_BLACKLIST.getStrings(), TweakerMoreConfigs.SELECTIVE_ENTITY_RENDERING_WHITELIST.getStrings());
 
 		SpectatorTeleportCommand.init();
 		WindowSizeHelper.onConfigLoaded();

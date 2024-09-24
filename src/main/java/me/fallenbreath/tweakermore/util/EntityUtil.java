@@ -20,12 +20,20 @@
 
 package me.fallenbreath.tweakermore.util;
 
+//import fi.dy.masa.malilib.MaLiLib;
+//import fi.dy.masa.malilib.util.StringUtils;
+import fi.dy.masa.malilib.util.restrictions.UsageRestriction;
+import java.util.List;
+import java.util.Set;
 import me.fallenbreath.tweakermore.util.compat.tweakeroo.TweakerooAccess;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 
 public class EntityUtil
@@ -63,5 +71,34 @@ public class EntityUtil
 			}
 		}
 		return MinecraftClient.getInstance().player;
+	}
+
+	public static class EntityRestriction extends UsageRestriction<EntityType<?>>
+	{
+		@Override
+		protected void setValuesForList(Set<EntityType<?>> set, List<String> names)
+		{
+			for (String name : names)
+			{
+				Identifier rl = null;
+
+				try
+				{
+					rl = Identifier.tryParse(name);
+				}
+				catch (Exception ignore) {}
+
+				EntityType<?> item = rl != null ? Registry.ENTITY_TYPE.get(rl) : null;
+
+				if (item != null)
+				{
+					set.add(item);
+				}
+//				else
+//				{
+//					MaLiLib.logger.warn(StringUtils.translate("malilib.error.invalid_entity_blacklist_entry", name));
+//				}
+			}
+		}
 	}
 }

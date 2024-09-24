@@ -147,6 +147,7 @@
     "tweaks.mc_tweaks.preciseItemEntityModel.ModelTransformationMixin",
     "tweaks.mc_tweaks.prioritizedCommandSuggestions.CommandSuggestorMixin",
     "tweaks.mc_tweaks.scoreboardSideBarScale.InGameHudMixin",
+    "tweaks.mc_tweaks.selectiveEntityRendering.WorldRendererMixin",
     "tweaks.mc_tweaks.shulkerItemContentHint.ItemRendererAccessor",
     "tweaks.mc_tweaks.shulkerItemContentHint.ItemRendererMixin",
     "tweaks.mc_tweaks.signEditScreenCancelButton.SignEditScreenMixin",
